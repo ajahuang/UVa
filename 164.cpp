@@ -18,7 +18,7 @@ using namespace std;
 #define CHANGE      0
 #define INSERT      1
 #define DELETE      2
-#define EQUAL       4
+#define EQUAL       3
 
 string s, t;
 int memo[21][21];
