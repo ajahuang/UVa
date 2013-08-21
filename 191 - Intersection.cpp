@@ -16,7 +16,7 @@ using namespace std;
 
 static const double EPS = 1e-9;
 
-/** Model a point of integer coordinates. */
+/** Model a point. */
 struct Point { double x, y; };
 
 /** Model a linear equation ax + by + c = 0. 
