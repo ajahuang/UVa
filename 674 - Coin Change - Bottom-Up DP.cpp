@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 using namespace std;
 
 int coins[] = {50, 25, 10, 5, 1};
