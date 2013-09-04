@@ -40,7 +40,6 @@ int main()
         vector<int> network;
         double minimumCable = numeric_limits<double>::max();
         do {
-
             double cable = 0;
             for (int i = 0; i < N - 1; ++i)
                 cable += dist(computers[computerIndexes[i]], computers[computerIndexes[i + 1]]);
@@ -50,7 +49,7 @@ int main()
                 minimumCable = cable;
                 network = computerIndexes;
             }
-        } while (std::next_permutation(computerIndexes.begin(), computerIndexes.end()));
+        } while (next_permutation(computerIndexes.begin(), computerIndexes.end()));
 
         cout << "**********************************************************" << endl;
         cout << "Network #" << T++ << endl;
