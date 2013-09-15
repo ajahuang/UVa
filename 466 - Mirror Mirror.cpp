@@ -46,11 +46,16 @@ void reflect(vector<vector<T> > &v)
             swap(v[r][c], v[n - 1 - r][c]);
 }
 
+// Compare all combinations of rotations and reflections
+// of pattern with newPattern. Return immediately when 
+// They are the same. Store the counts of rotations and 
+// Reflections in ro and re, respectively.
 void compare(vector<vector<char> > &pattern,
              const vector<vector<char> > &newPattern,
              int &ro,
              int &re)
 {
+    
     while (re < 2)
     {      
         while (ro < 4)
@@ -61,6 +66,8 @@ void compare(vector<vector<char> > &pattern,
             rotate(pattern);
             ++ro;   
         }
+        // Apply a reflection only after all the three 
+        // rotations don't match.
         ro = 0;
         reflect(pattern);
         ++re;
