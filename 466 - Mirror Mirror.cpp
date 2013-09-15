@@ -46,19 +46,6 @@ void reflect(vector<vector<T> > &v)
             swap(v[r][c], v[n - 1 - r][c]);
 }
 
-void print(vector<vector<char> > &v)
-{
-    for (int r = 0; r < v.size(); ++r)
-    {
-        for (int c = 0; c < v.size(); ++c)
-        {
-            cout << v[r][c];
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
 void compare(vector<vector<char> > &pattern,
              const vector<vector<char> > &newPattern,
              int &ro,
