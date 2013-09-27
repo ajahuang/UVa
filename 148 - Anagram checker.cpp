@@ -26,8 +26,8 @@ void searchAnagrams(const vector<string>                &phrases,
         return;
     }
     // Check if s contains the string iter->second.
-    // For example, ABCDEFG contains ACG
-    // Check in alphabetic order, startin from iterStart. 
+    // For example, ABCDEFG contains ACG.
+    // Check in alphabetic order, starting from iterStart. 
     map<string, string>::iterator iter = iterStart;
     for (; iter != memo.end(); ++iter)
     {
@@ -37,7 +37,7 @@ void searchAnagrams(const vector<string>                &phrases,
             if (!marks[i] && s[i] == iter->second[j])
             {
                 markPosition.push_back(i);
-                // "Do not include the set consisting of the original words."
+                // Matched! But.. "Do not include the set consisting of the original words."
                 if (j == iter->second.size() - 1
                     && find(phrases.begin(), phrases.end(), iter->first) == phrases.end())
                 {
@@ -78,10 +78,10 @@ int main()
         stringstream ss(input);
         while (ss >> input)
             phrases.push_back(input);
-        // Remove empty spaces and sort s.
+        // Remove empty spaces then sort s.
         s.erase(remove(s.begin(), s.end(), ' '), s.end());
         sort(s.begin(), s.end());
-        // Mark the matched positions of s.
+        // For marking the matched positions of s.
         vector<bool> marks(s.size(), false);
         // Store the matched anagrams.
         vector<string> anagrams;
