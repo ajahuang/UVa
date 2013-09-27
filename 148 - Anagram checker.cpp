@@ -9,14 +9,20 @@ using namespace std;
 
 static map<string, string> memo;
 
+// Check if s contains the phrases of memo starting from iterStart.
+// For example, ABCDEFG contains ACG.
+// Arguments:
+//   phrases  -- The original input phrases.
+//   anagrams -- Stores the matched phrases (of the directory) so far.
+//   matched  -- Matched[i] = true if s[i] was matched; false, otherwise.
 void searchAnagrams(const vector<string>                &phrases, 
                     const map<string, string>::iterator &iterStart,
                     vector<string>                      &anagrams, 
                     const string                        &s, 
-                    vector<bool>                        &marks)
+                    vector<bool>                        &matched)
 {
-    // All chars are marked, meaning all matched.
-    if (count(marks.begin(), marks.end(), false) == 0)
+    // All elements of s were matched.
+    if (count(matched.begin(), matched.end(), false) == 0)
     {
         copy(phrases.begin(), phrases.end(), ostream_iterator<string>(cout, " "));
         cout << "=";
@@ -25,31 +31,29 @@ void searchAnagrams(const vector<string>                &phrases,
         cout << endl;
         return;
     }
-    // Check if s contains the string iter->second.
-    // For example, ABCDEFG contains ACG.
-    // Check in alphabetic order, starting from iterStart. 
     map<string, string>::iterator iter = iterStart;
     for (; iter != memo.end(); ++iter)
     {
         vector<size_t> markPosition;
         for (size_t i = 0, j = 0; i < s.size(); ++i)
         {
-            if (!marks[i] && s[i] == iter->second[j])
+            if (!matched[i] && s[i] == iter->second[j])
             {
                 markPosition.push_back(i);
                 // Matched! But.. "Do not include the set consisting of the original words."
                 if (j == iter->second.size() - 1
                     && find(phrases.begin(), phrases.end(), iter->first) == phrases.end())
                 {
+                    // Mark the matched elements.
                     for (size_t k = 0; k < markPosition.size(); ++k)
-                        marks[markPosition[k]] = true;
+                        matched[markPosition[k]] = true;
                     // Store the matched anagram.
                     anagrams.push_back(iter->first);
-                    searchAnagrams(phrases, iter, anagrams, s, marks);
+                    searchAnagrams(phrases, iter, anagrams, s, matched);
                     anagrams.pop_back();
-                    // Undo the marks.
+                    // Unmark.
                     for (size_t k = 0; k < markPosition.size(); ++k)
-                        marks[markPosition[k]] = false;
+                        matched[markPosition[k]] = false;
                     break;
                 }
                 else
@@ -69,7 +73,7 @@ int main()
         sort(word.begin(), word.end());
         memo[input] = word;
     }
-    // Check the phrases.
+    // Get the phrases.
     while (getline(cin, input), input != "#")
     {
         string s = input;
@@ -82,10 +86,10 @@ int main()
         s.erase(remove(s.begin(), s.end(), ' '), s.end());
         sort(s.begin(), s.end());
         // For marking the matched positions of s.
-        vector<bool> marks(s.size(), false);
+        vector<bool> matched(s.size(), false);
         // Store the matched anagrams.
         vector<string> anagrams;
-        searchAnagrams(phrases, memo.begin(), anagrams, s, marks);
+        searchAnagrams(phrases, memo.begin(), anagrams, s, matched);
     }
 
     return 0;
