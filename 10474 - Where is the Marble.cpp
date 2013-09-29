@@ -22,11 +22,8 @@ int main()
             cin >> query;
             pair<vector<int>::iterator, vector<int>::iterator> range;
             range = equal_range(marbles.begin(), marbles.end(), query);
-            if (range.first == marbles.end() 
-                || *range.first != query)
-            {
+            if (range.first == range.second) 
                 cout << query << " not found" << endl;
-            }
             else
                 cout << query 
                      << " found at " 
