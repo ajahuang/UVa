@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-enum { NO_INSERT, INSERT_RIGHT, INSERT_LEFT };
+enum { TERMINAL, NO_INSERT, INSERT_RIGHT, INSERT_LEFT };
 typedef vector<vector<int> > vvi_t;
 
 string palindrome(const string  &s, 
@@ -14,7 +14,7 @@ string palindrome(const string  &s,
     string str;
     switch (path[i][j])
     {
-    case (-1):
+    case TERMINAL:
         str = s.substr(i, j - i + 1);
         break;
 
@@ -45,10 +45,10 @@ int main()
     while (cin >> s)
     {
         // dp[i][j] stores the minimum number of characters required to make 
-        // s[i..j] a palindrome.
-        // Initialize Base cases.
+        // s[i..j] a palindrome. 
         vvi_t dp(s.size(), vector<int>(s.size(), 0));
-        vvi_t path(s.size(), vector<int>(s.size(), -1));
+        vvi_t path(s.size(), vector<int>(s.size(), TERMINAL));
+        // Initialize Base cases.
         for (size_t i = 0; i < s.size() - 1; ++i)
         {
             if (s[i] == s[i + 1])
@@ -74,16 +74,16 @@ int main()
                 }
                 else
                 {
-                    int insRight = dp[i + 1][j];
-                    int insLeft = dp[i][j - 1];
-                    if (insRight <= insLeft)
+                    int r = dp[i + 1][j];
+                    int l = dp[i][j - 1];
+                    if (r <= l)
                     {
-                        dp[i][j] = 1 + insRight;
+                        dp[i][j] = 1 + r;
                         path[i][j] = INSERT_RIGHT;
                     }
                     else
                     {
-                        dp[i][j] = 1 + insLeft;
+                        dp[i][j] = 1 + l;
                         path[i][j] = INSERT_LEFT;
                     }
                 }
