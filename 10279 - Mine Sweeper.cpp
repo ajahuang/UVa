@@ -33,12 +33,7 @@ int main()
             for (size_t c = 1; c <= n; ++c)
             {
                 if (board[r][c] == '*')
-                {
-                    if (gameOver)
-                        cout << '*';
-                    else
-                        cout << '.';
-                }
+                    cout << (gameOver? '*' : '.');
                 else if (game[r][c] == '.')
                     cout << '.';
                 else
