@@ -24,7 +24,7 @@ int main()
         vector<Segment> S(1);
         while (cin >> S[0].L >> S[0].R, !(S[0].L == 0 && S[0].R == 0))
             S.push_back(S[0]);
-        // Sort S according to element's L.
+        // Sort S by increasing left endpoint.
         sort(S.begin() + 1, S.end(), comp);
         int curL = 0, rReach = 0;
         size_t i = 1;
