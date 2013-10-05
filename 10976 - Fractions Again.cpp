@@ -8,17 +8,18 @@ int main()
     while (cin >> k)
     {
         /** 1/k = 1/x + 1/y
-            The largest possible x and y are 2k.
+            When x and y are equal, they are both 2k.
             
             1/k = 1/(2k) + 1/(2k)
             
+            if x is larger than 2k, then y must be smaller than 2k.
             Since y can't be k, we only need to check y in [k+1, 2k]. 
             But how to compute x?
 
             1/x = 1/k - 1/y
                 = (y-k) / (k*y)
             
-            So if y-k divides k*y, then x = (k*y)/(y-k).
+            So if y-k divides k*y, then x = (k*y) / (y-k).
         */
         vector<pair<int, int> > solutions;
         for (int y = k + 1; y <= 2 * k; ++y)
