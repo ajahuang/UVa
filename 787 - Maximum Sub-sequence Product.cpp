@@ -142,6 +142,7 @@ int main()
                 // Reset pos and neg.
                 pos = BigInt("");
                 neg = BigInt("");
+                continue;
             }
             else if (n.sign == MINUS)
             {
@@ -150,23 +151,17 @@ int main()
                              n : bigIntMultiPly(pos, n);
                 pos = temp == BigInt("")? 
                               BigInt("") : bigIntMultiPly(temp, n);
-              
-                if (bigIntCompare()(ans, neg))
-                    ans = neg;
-                if (bigIntCompare()(ans, pos))
-                    ans = pos;
             }
             else
             {
                 neg = neg == BigInt("")? 
                              BigInt("") : bigIntMultiPly(neg, n);
                 pos = bigIntMultiPly(pos, n);
-
-                if (bigIntCompare()(ans, neg))
-                    ans = neg;
-                if (bigIntCompare()(ans, pos))
-                    ans = pos;
             }
+            if (bigIntCompare()(ans, neg))
+                ans = neg;
+            if (bigIntCompare()(ans, pos))
+                ans = pos;
         } while (cin >> s, s != "-999999");
 
         cout << ans << endl;
