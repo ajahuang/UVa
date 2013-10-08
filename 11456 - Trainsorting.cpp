@@ -42,10 +42,10 @@ int main()
             // Pass in the vector(cars.end() .. iter). 
             size_t lis = LIDS(vector<size_t>(reverse_iterator<vector<size_t>::iterator>(cars.end()), 
                                              reverse_iterator<vector<size_t>::iterator>(iter)), 
-                                             less<size_t>());
+                              less<size_t>());
             size_t lds = LIDS(vector<size_t>(reverse_iterator<vector<size_t>::iterator>(cars.end()), 
                                              reverse_iterator<vector<size_t>::iterator>(iter)), 
-                                             greater<size_t>());
+                              greater<size_t>());
             longestTrain = max(longestTrain, lis + lds - 1);
         }
         cout << longestTrain << endl;
