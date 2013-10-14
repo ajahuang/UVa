@@ -33,7 +33,7 @@ int main()
         
         // Greedily pick a next job imposing the minimum fine.
         // Keep lexicographical order for equivalent jobs.
-        stable_sort(job.begin(),job.end(), comp);
+        stable_sort(job.begin(), job.end(), comp);
 
         cout << job[0].id;
         for (int i = 1; i < N; ++i)
