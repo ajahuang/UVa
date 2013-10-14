@@ -17,7 +17,7 @@ int main()
         int scarecrows = 0;
         for (int i = 0; i < N; ++i)
         {
-            // Greedily make a scarecrow covers 3 cells. 
+            // Greedily make a scarecrow cover 3 cells. 
             if (field[i] == '.')
             {
                 field[i] = field[i + 1] = field[i + 2] = '#';
