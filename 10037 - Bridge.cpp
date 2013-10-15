@@ -5,6 +5,14 @@
 #include <algorithm>
 using namespace std;
 
+void print(stringstream &ss, int t1, int t2 = -1)
+{
+    if (t2 == -1)
+        ss << t1 << endl;
+    else
+        ss << t1 << " " << t2 << endl;
+}
+
 int main()
 {  
     int T;
@@ -34,18 +42,18 @@ int main()
             if (t1 < t2)
             {
                 totalTime += t1;
-                ss << t[1] << " " << t[2] << endl;
-                ss << t[1] << endl;
-                ss << t[c - 1] << " " << t[c] << endl;
-                ss << t[2] << endl;
+                print(ss, t[1], t[2]);
+                print(ss, t[1]);
+                print(ss, t[c - 1], t[c]);
+                print(ss, t[2]);
             }
             else
             {
                 totalTime += t2;
-                ss << t[1] << " " << t[c] << endl;
-                ss << t[1] << endl;
-                ss << t[1] << " " << t[c - 1] << endl;
-                ss << t[1] << endl;
+                print(ss, t[1], t[c]);
+                print(ss, t[1]);
+                print(ss, t[1], t[c - 1]);
+                print(ss, t[1]);
             }
             c -= 2;
         }
@@ -53,21 +61,21 @@ int main()
         if (c == 3)
         {
             totalTime += t[2] + t[1] + t[3];
-            ss << t[1] << " " << t[2] << endl;
-            ss << t[1] << endl;
-            ss << t[1] << " " << t[3] << endl;
+            print(ss, t[1], t[2]);
+            print(ss, t[1]);
+            print(ss, t[1], t[3]);
         }
         // <AB>
         else if (c == 2)
         {
             totalTime += t[2];
-            ss << t[1] << " " << t[2] << endl;
+            print(ss, t[1], t[2]);
         }
         // <A>
         else
         {
             totalTime += t[1];
-            ss << t[1] << endl;
+            print(ss, t[1]);
         }
 
         cout << totalTime << endl;
