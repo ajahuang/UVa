@@ -14,6 +14,7 @@ int rootChildren;
 int dfsCounter = 1;
 vector<int> dfsNum;
 vector<int> dfsLow;
+vector<int> dfsParent;
 // Articulation Vertices
 vector<bool> artiVertices; 
 
@@ -25,6 +26,7 @@ void DFS(int u)
         int v = network[u][i];
         if (dfsNum[v] == UNVISITED)
         {
+            dfsParent[v] = u;
             if (u == dfsRoot)
                 ++rootChildren;
             DFS(v);
@@ -37,7 +39,8 @@ void DFS(int u)
 
             dfsLow[u] = min(dfsLow[u], dfsLow[v]);
         }
-        else // Is (u, v) a back edge?
+        // Edge to the parent is not a back edge.
+        else if (v != dfsParent[u]) 
             dfsLow[u] = min(dfsLow[u], dfsNum[v]); 
     }
 }
@@ -55,7 +58,9 @@ int main()
         dfsNum.resize(N + 1, UNVISITED);
         dfsLow.clear();
         dfsLow.resize(N + 1, UNVISITED);
-        
+        dfsParent.clear();
+        dfsParent.resize(N + 1, UNVISITED);
+
         artiVertices.clear();
         artiVertices.resize(N + 1, false);
 
