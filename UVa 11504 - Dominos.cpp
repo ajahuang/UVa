@@ -50,7 +50,7 @@ int main()
         for (int i = 0; i < n; ++i)
         {
             int u = topoSort[i];
-            if (!visited[u])
+            if (! visited[u])
             {
                 DFS(dominos, visited, topoSort, u);
                 ++knock;
