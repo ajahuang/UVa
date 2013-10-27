@@ -68,7 +68,7 @@ int main()
                 continue;
 
             cost2 += e.cost;
-            // Set v to u's group.
+            // Set v's group to u's group.
             groups[vGroup] = uGroup;
         }
         if (T++)
