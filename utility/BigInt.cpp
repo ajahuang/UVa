@@ -10,45 +10,66 @@
 #include <sstream>
 using namespace std;
 
-static const int PLUS  =  1;
-static const int MINUS = -1;
-
-struct BigInt
+class BigInt
 {
+public:
+    // Contruct from a long integer. 
+    BigInt(long long n);
+    // Contruct from a string.
+    BigInt(const string &s);
+    // Contruct by filling a number.
+    BigInt(size_t size, int n);
+
+    // Operators.
+    BigInt operator*(BigInt &rhs);
+    BigInt operator*(int rhs);
+    BigInt operator/(BigInt &rhs);
+    BigInt operator/(int rhs);
+    bool operator<(const BigInt &rhs) const;
+    bool operator==(const BigInt &rhs) const;
+
+    friend BigInt operator*(BigInt &bI, long long n);
+    friend BigInt operator*(long long n, BigInt &bI);
+    friend BigInt operator/(BigInt &bI, long long n);
+    friend BigInt operator/(long long n, BigInt &bI);
+    friend ostream &operator<<(ostream &os, BigInt bI);
+
+private:
+    const int PLUS  =  1;
+    const int MINUS = -1;
+    
+    init();
+    
     int     sign;
     string  digits;
-    // Contruct with a long integer.
-    BigInt(long long i)
-    {
-        stringstream ss;
-        ss << i;
-        digits = ss.str();
-        handleSignAndReverse();
-    }
-    // Contruct with a string.
-    BigInt(const string &s): digits(s)
-    {
-        handleSignAndReverse();
-    }
-    // Contruct with filling c.
-    BigInt(size_t size, char c): digits(size, c), sign(PLUS)
-    {}
-   
-    void handleSignAndReverse()
-    {
-        // sign is default to MINUS.
-        sign = MINUS;
-        if (digits.size() > 0
-            && digits[0] == '-')
-        {
-            sign = MINUS;
-            digits = digits.substr(1);
-        }
-        else
-            sign = PLUS;
+};
+  
+BigInt::BigInt(long long n)
+{
+    stringstream ss;
+    ss << n;
+    digits = ss.str();
+    init();
+}
 
-        reverse(digits.begin(), digits.end());
+BigInt::BigInt(const string &s)
+    : digits(s)
+{
+    init();
+}
+
+void BigInt::init()
+{
+    if (digits[0] == '-')
+    {
+        sign = MINUS;
+        digits = digits.substr(1);
     }
+    else
+        sign = PLUS;
+
+    reverse(digits.begin(), digits.end());
+}
 
     bool operator==(const BigInt &a) const
     {
@@ -68,11 +89,6 @@ ostream &operator<<(ostream &os, BigInt a)
 // Return a * b;
 BigInt bigIntMultiPly(const BigInt &a, const BigInt &b)
 {
-    if (a.digits == "")
-        return b;
-    else if (b.digits == "")
-        return a;
-
     // c = a * b.
     BigInt c(a.digits.size() + b.digits.size(), '0');
     c.sign = (a.sign == b.sign? PLUS : MINUS);
