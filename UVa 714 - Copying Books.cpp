@@ -29,7 +29,7 @@ int main()
             {
                 // Switch to the next scribe?
                 if (sum + p[i] > M // This scribe is overloaded.
-                    || i + 1 < k - division.size()) // Leave at least one book for other scribes.
+                    || i + 1 < k - division.size()) // Leave at least one book for each scribe.
                 {
                     division.push_back(i);
                     sum = p[i];
