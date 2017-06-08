@@ -26,7 +26,14 @@ int main()
             cin >> pos >> radius;
             // Calculate this circle's effective interval [L, R].
             // Then this problem is identical to 10020 - Minimal coverage.
-            double range = sqrt(radius * radius - (w / 2.0) * (w / 2.0));
+            double circle = radius * radius - (w / 2.0) * (w / 2.0);
+            double range;
+            
+            if( circle >= 0.0 )
+                range = sqrt( circle );
+            else
+                range = 0.0;
+            
             circles[0].L = pos - range;
             circles[0].R = pos + range;
             circles.push_back(circles[0]);
